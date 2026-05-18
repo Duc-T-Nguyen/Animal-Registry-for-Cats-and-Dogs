@@ -20,11 +20,6 @@ public:
         individualCatNum = numberOfCats;
     };
     void introduceCat() {
-        cout << "Hello, I'm " << animalName << " and am a " << animalType << endl;
-        cout << "I am " << animalAge << " years old and weigh " << animalWeight << endl;
-        cout << "I am a " << animalBreed << " " << animalType << " and have " << animalColor << " as my color" << endl;
-        cout << "My health status is " << animalHealth << endl;
-        cout << "Animal sound " << animalSound << endl;
         cout << "Cat number: " << individualCatNum << endl;
     };
 };
