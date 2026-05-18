@@ -91,6 +91,7 @@ bool welcomePersonToProgram() {
             gotAnswer = true;
         }
     } while (gotAnswer == false);
+
     if (toupper(get_S_or_N) == 'S') {
         return true;
     }
@@ -100,11 +101,21 @@ bool welcomePersonToProgram() {
 void openTheDataBase() {
     string nameOfTheDataBaseFile;
     cout << "Okay, first please give the name of the file that you want to be read" << endl;
+    cin.ignore();
     do {
         getline(cin, nameOfTheDataBaseFile);
         nameOfFile.open(nameOfTheDataBaseFile);
     } while (!nameOfFile.is_open());
-    // cout << "working" << endl;
+}
+
+void checkIfUnknown() {
+    if (hold[0].length() < 2) { hold[0] = "Unknown"; }
+    if (hold[1].length() < 2) { hold[1] = "Unknown"; }
+    if (hold[4].length() < 2) { hold[4] = "Unknown"; }
+    if (hold[5].length() < 2) { hold[5] = "Unknown"; }
+    if (hold[6].length() < 2) { hold[6] = "Its alive"; }
+    if (theAge < 1)    { theAge = -1; }
+    if (theWeight < 1) { theWeight = -1; }
 }
 
 void createNewAnimalDog() {
@@ -113,56 +124,34 @@ void createNewAnimalDog() {
     theAge = stoi(hold[2]);
     theWeight = stoi(hold[3]);
     checkIfUnknown();
-    Dog Dog;
-    Dog.animalType = hold[0];
-    Dog.animalName = hold[1];
-    Dog.animalAge = theAge;
-    Dog.animalWeight = theWeight;
-    Dog.animalBreed = hold[4];
-    Dog.animalColor = hold[5];
-    Dog.animalHealth = hold[6];
-    dogVec.push_back(Dog);
-    animalVec.push_back(Dog);
+    Dog newDog;
+    newDog.setType(hold[0]);
+    newDog.setName(hold[1]);
+    newDog.setAge(theAge);
+    newDog.setWeight(theWeight);
+    newDog.setBreed(hold[4]);
+    newDog.setColor(hold[5]);
+    newDog.setHealth(hold[6]);
+    dogVec.push_back(newDog);
+    animalVec.push_back(newDog);
 }
 
 void createNewAnimalCat() {
+    double theWeight = -1;
+    int theAge = -1;
     theAge = stoi(hold[2]);
     theWeight = stoi(hold[3]);
     checkIfUnknown();
-    Cat Cat;
-    Cat.animalType = hold[0];
-    Cat.animalName = hold[1];
-    Cat.animalAge = theAge;
-    Cat.animalWeight = theWeight;
-    Cat.animalBreed = hold[4];
-    Cat.animalColor = hold[5];
-    Cat.animalHealth = hold[6];
-    catVec.push_back(Cat);
-    animalVec.push_back(Cat);
-}
-
-void checkIfUnknown(){
-    if(hold[0].length() < 2){
-        hold[0] = "Unknown";
-    }
-    if(hold[1].length() < 2){
-        hold[1] = "Unknown";
-    }
-    if(hold[4].length() < 2){
-        hold[4] = "Unknown";
-    }
-    if(hold[5].length() < 2){
-        hold[5] = "Unknown";
-    }
-    if(hold[6].length() < 2){
-        hold[6] = "Its alive";
-    }
-    if(theAge < 1){
-        theAge = -1;
-    }
-    if(theWeight < 1){
-        theWeight = -1;
-    }
+    Cat newCat;
+    newCat.setType(hold[0]);
+    newCat.setName(hold[1]);
+    newCat.setAge(theAge);
+    newCat.setWeight(theWeight);
+    newCat.setBreed(hold[4]);
+    newCat.setColor(hold[5]);
+    newCat.setHealth(hold[6]);
+    catVec.push_back(newCat);
+    animalVec.push_back(newCat);
 }
 
 void createNonCatOrDog() {
@@ -171,15 +160,15 @@ void createNonCatOrDog() {
     theAge = stoi(hold[2]);
     theWeight = stoi(hold[3]);
     checkIfUnknown();
-    Animal Animal;
-    Animal.animalType = hold[0];
-    Animal.animalName = hold[1];
-    Animal.animalAge = theAge;
-    Animal.animalWeight = theWeight;
-    Animal.animalBreed = hold[4];
-    Animal.animalColor = hold[5];
-    Animal.animalHealth = hold[6];
-    animalVec.push_back(Animal);
+    Animal newAnimal;
+    newAnimal.setType(hold[0]);
+    newAnimal.setName(hold[1]);
+    newAnimal.setAge(theAge);
+    newAnimal.setWeight(theWeight);
+    newAnimal.setBreed(hold[4]);
+    newAnimal.setColor(hold[5]);
+    newAnimal.setHealth(hold[6]);
+    animalVec.push_back(newAnimal);
 }
 
 void readInTheData() {
@@ -195,17 +184,15 @@ void readInTheData() {
             else if (hold[0] == "cat") {
                 createNewAnimalCat();
             }
-            else if (hold[0] != "cat" && hold[0] == "dog" && hold[0] != "AnimalType") {
+            else if (hold[0] != "cat" && hold[0] != "dog" && hold[0] != "AnimalType") {
                 createNonCatOrDog();
             }
             countTheNumber = 0;
         }
-        countTheNumber = 0;
     }
 }
 
 void outputTheReport() {
-    cout << "entered" << endl;
     cout << "Report #1: Animal Report" << endl;
     for (int i = 0; i < animalVec.size(); i++) {
         animalVec[i].introduceAnimal();
@@ -218,7 +205,6 @@ void outputTheReport() {
     for (int i = 0; i < catVec.size(); i++) {
         catVec[i].introduceCat();
     }
-
 }
 
 void haveANiceDay() {
