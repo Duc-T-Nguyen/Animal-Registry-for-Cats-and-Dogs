@@ -11,7 +11,7 @@
 #include <string>
 using namespace std;
 class Animal {
-public:
+private:
     string animalType = "Unknown";
     string animalName = "Unknown";
     int animalAge = -1;
@@ -20,6 +20,7 @@ public:
     string animalColor = "Unknown";
     string animalHealth = "Its alive";
     string animalSound = "softly breathing";
+public:
     static int totalNumberAnimal;
     int individualAnimalNum;
     Animal(){
@@ -35,6 +36,13 @@ public:
         cout << "Animal sound " << animalSound << endl;
         cout << "Animal number: " << individualAnimalNum << endl;
     };
+    void setType(string t) {animalType = t;}
+    void setName(string n) {animalName = n;}
+    void setAge(int a) {animalAge = a;}
+    void setWeight(double w) {animalWeight = w;}
+    void setBreed(string b) {animalBreed = b;}
+    void setColor(string c) {animalColor = c;}
+    void setHealth(string h) {animalHealth = h;}
 };
 int Animal::totalNumberAnimal = 0;
 #endif /* Animal_h */
